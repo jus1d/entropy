@@ -9,7 +9,7 @@ run:
 test: gen
 	go test ./...
 
-lint:
+lint: gen
 	golangci-lint run ./...
 
 gen:
