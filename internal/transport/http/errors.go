@@ -1,6 +1,7 @@
 package http
 
 import (
+	"errors"
 	"log/slog"
 	"net/http"
 
@@ -15,7 +16,8 @@ import (
 func HTTPErrorHandler(err error, c echo.Context) {
 	reqID := requestid.Get(c)
 
-	if he, ok := err.(*echo.HTTPError); ok {
+	var he *echo.HTTPError
+	if errors.As(err, &he) {
 		if he.Code == http.StatusNotFound {
 			_ = apiresponse.Error(c, http.StatusNotFound, apierror.CodeNotFound, "resource not found", "Check the URL and HTTP method")
 			return
@@ -26,7 +28,8 @@ func HTTPErrorHandler(err error, c echo.Context) {
 		}
 	}
 
-	if ae, ok := err.(*apierror.Error); ok {
+	var ae *apierror.Error
+	if errors.As(err, &ae) {
 		slog.Debug("responded with API error",
 			sl.Err(err),
 			slog.String("request_id", reqID),

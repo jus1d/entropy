@@ -23,7 +23,7 @@ type Server struct {
 	http *http.Server
 }
 
-func NewServer(c *config.Config) *Server {
+func NewServer(c *config.Config, logsetService v1.LogsetService) *Server {
 	e := echo.New()
 
 	e.HTTPErrorHandler = HTTPErrorHandler
@@ -48,7 +48,7 @@ func NewServer(c *config.Config) *Server {
 
 	api := e.Group("/api")
 	v1Group := api.Group("/v1")
-	v1Router := v1.NewRouter()
+	v1Router := v1.NewRouter(logsetService)
 	v1Router.Register(v1Group)
 
 	return &Server{

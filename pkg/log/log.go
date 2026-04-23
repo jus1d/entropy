@@ -27,6 +27,12 @@ func InitDefault(env config.Env) {
 			AddSource:   true,
 			ReplaceAttr: replaceAttr,
 		}))
+	default:
+		logger = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+			Level:       slog.LevelInfo,
+			AddSource:   true,
+			ReplaceAttr: replaceAttr,
+		}))
 	}
 
 	logger = logger.With(
