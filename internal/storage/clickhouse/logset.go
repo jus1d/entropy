@@ -22,7 +22,7 @@ func (s *LogsetStorage) Get(ctx context.Context, logsetID uuid.UUID) ([]map[stri
 	if err != nil {
 		return nil, fmt.Errorf("query logs: %w", err)
 	}
-	defer rows.Close()
+	defer rows.Close() //nolint:errcheck
 
 	var logs []map[string]any
 	for rows.Next() {
