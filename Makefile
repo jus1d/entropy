@@ -1,4 +1,4 @@
-.PHONY: build run test lint clean
+.PHONY: build run test lint clean gen
 
 build:
 	go build -o .build/api ./cmd/api
@@ -6,11 +6,14 @@ build:
 run:
 	go run ./cmd/api
 
-test:
+test: gen
 	go test ./...
 
-lint:
+lint: gen
 	golangci-lint run ./...
+
+gen:
+	go generate ./...
 
 clean:
 	rm -rf .build/

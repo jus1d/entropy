@@ -1,0 +1,12 @@
+env: dev
+
+http:
+  address: "0.0.0.0:6969"
+  timeout: 4s
+  idle_timeout: 60s
+
+clickhouse:
+  address: "clickhouse:9000"
+  database: default
+  username: default
+  password: default

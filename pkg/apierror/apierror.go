@@ -13,6 +13,8 @@ const (
 	CodeInternal         Code = "internal"
 )
 
+var _ error = (*Error)(nil)
+
 type Error struct {
 	Status  int
 	Code    Code

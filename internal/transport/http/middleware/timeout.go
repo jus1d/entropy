@@ -1,9 +1,10 @@
 package middleware
 
 import (
+	"time"
+
 	"github.com/labstack/echo/v4"
 	echomw "github.com/labstack/echo/v4/middleware"
-	"time"
 )
 
 func Timeout(duration time.Duration) echo.MiddlewareFunc {

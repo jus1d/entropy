@@ -17,6 +17,8 @@ type PrettyHandlerOptions struct {
 	SlogOpts *slog.HandlerOptions
 }
 
+var _ slog.Handler = (*PrettyHandler)(nil)
+
 type PrettyHandler struct {
 	slog.Handler
 	logger *stdlog.Logger
@@ -46,7 +48,7 @@ func (h *PrettyHandler) Handle(_ context.Context, r slog.Record) error {
 		level = color.RedString(level)
 	}
 
-	fields := make(map[string]interface{}, r.NumAttrs()+1)
+	fields := make(map[string]any, r.NumAttrs()+1)
 	fields["timestamp"] = r.Time.Format("2006-01-02T15:04:05Z07:00")
 
 	if r.PC != 0 {

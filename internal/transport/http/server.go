@@ -7,12 +7,12 @@ import (
 	"log/slog"
 	"net/http"
 
-	"apigo/internal/config"
-	"apigo/internal/transport/http/middleware"
-	v1 "apigo/internal/transport/http/v1"
-	"apigo/pkg/ratelimit"
-	"apigo/pkg/requestid"
-	"apigo/pkg/requestlog"
+	"entropy/internal/config"
+	"entropy/internal/transport/http/middleware"
+	v1 "entropy/internal/transport/http/v1"
+	"entropy/pkg/ratelimit"
+	"entropy/pkg/requestid"
+	"entropy/pkg/requestlog"
 
 	"github.com/labstack/echo/v4"
 	echomw "github.com/labstack/echo/v4/middleware"
@@ -23,7 +23,7 @@ type Server struct {
 	http *http.Server
 }
 
-func NewServer(c *config.Config) *Server {
+func NewServer(c *config.Config, logsetService v1.LogsetService) *Server {
 	e := echo.New()
 
 	e.HTTPErrorHandler = HTTPErrorHandler
@@ -48,7 +48,7 @@ func NewServer(c *config.Config) *Server {
 
 	api := e.Group("/api")
 	v1Group := api.Group("/v1")
-	v1Router := v1.NewRouter()
+	v1Router := v1.NewRouter(logsetService)
 	v1Router.Register(v1Group)
 
 	return &Server{

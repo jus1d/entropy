@@ -3,7 +3,7 @@ package ratelimit
 import (
 	"net/http"
 
-	"apigo/pkg/apierror"
+	"entropy/pkg/apierror"
 
 	"github.com/labstack/echo/v4"
 )

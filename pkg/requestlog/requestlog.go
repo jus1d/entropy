@@ -1,12 +1,13 @@
 package requestlog
 
 import (
+	"errors"
 	"fmt"
 	"log/slog"
 	"time"
 
-	"apigo/pkg/apierror"
-	"apigo/pkg/requestid"
+	"entropy/pkg/apierror"
+	"entropy/pkg/requestid"
 
 	"github.com/labstack/echo/v4"
 )
@@ -22,17 +23,16 @@ func Completed(next echo.HandlerFunc) echo.HandlerFunc {
 
 		status := c.Response().Status
 		if err != nil {
-			if apiErr, ok := err.(*apierror.Error); ok {
+			var apiErr *apierror.Error
+			var he *echo.HTTPError
+			switch {
+			case errors.As(err, &apiErr):
 				status = apiErr.Status
-			} else if he, ok := err.(*echo.HTTPError); ok {
+			case errors.As(err, &he):
 				status = he.Code
-			} else {
+			default:
 				status = 500
 			}
-		}
-
-		if (c.Path() == "/liveness" || c.Path() == "/readiness" || c.Path() == "/metrics") && status == 200 {
-			return err
 		}
 
 		slog.Debug("request completed",

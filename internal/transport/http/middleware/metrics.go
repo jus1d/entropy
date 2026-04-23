@@ -1,10 +1,11 @@
 package middleware
 
 import (
+	"errors"
 	"strconv"
 	"time"
 
-	"apigo/pkg/apierror"
+	"entropy/pkg/apierror"
 
 	"github.com/labstack/echo/v4"
 	"github.com/prometheus/client_golang/prometheus"
@@ -39,7 +40,8 @@ func Metrics(next echo.HandlerFunc) echo.HandlerFunc {
 
 		status := c.Response().Status
 		if err != nil {
-			if apiErr, ok := err.(*apierror.Error); ok {
+			var apiErr *apierror.Error
+			if errors.As(err, &apiErr) {
 				status = apiErr.Status
 			} else {
 				status = 500

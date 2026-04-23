@@ -5,8 +5,8 @@ import (
 	"log/slog"
 	"os"
 
-	"apigo/internal/config"
-	"apigo/pkg/log/prettyslog"
+	"entropy/internal/config"
+	"entropy/pkg/log/prettyslog"
 )
 
 func InitDefault(env config.Env) {
@@ -22,6 +22,12 @@ func InitDefault(env config.Env) {
 			ReplaceAttr: replaceAttr,
 		}))
 	case config.EnvProduction:
+		logger = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+			Level:       slog.LevelInfo,
+			AddSource:   true,
+			ReplaceAttr: replaceAttr,
+		}))
+	default:
 		logger = slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
 			Level:       slog.LevelInfo,
 			AddSource:   true,

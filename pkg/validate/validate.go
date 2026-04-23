@@ -9,7 +9,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Bind(c echo.Context, dst interface{}) error {
+func Bind(c echo.Context, dst any) error {
 	if reflect.TypeOf(dst).Kind() != reflect.Ptr {
 		return errors.New("validate: invalid dstination: expected pointer")
 	}
@@ -28,7 +28,7 @@ func Bind(c echo.Context, dst interface{}) error {
 	return Struct(dst)
 }
 
-func Struct(dst interface{}) error {
+func Struct(dst any) error {
 	val := reflect.ValueOf(dst)
 	typ := reflect.TypeOf(dst)
 
@@ -51,7 +51,7 @@ func Struct(dst interface{}) error {
 		}
 
 		if field.Kind() == reflect.Struct && fieldType.Type != reflect.TypeOf(time.Time{}) {
-			var nestedPtr interface{}
+			var nestedPtr any
 			if field.CanAddr() {
 				nestedPtr = field.Addr().Interface()
 			} else {

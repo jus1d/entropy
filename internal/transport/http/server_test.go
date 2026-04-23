@@ -3,12 +3,11 @@ package http_test
 import (
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 	"time"
 
-	"apigo/internal/config"
-	apphttp "apigo/internal/transport/http"
+	"entropy/internal/config"
+	apphttp "entropy/internal/transport/http"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -23,7 +22,7 @@ func newTestServer() *httptest.Server {
 			IdleTimeout: 60 * time.Second,
 		},
 	}
-	srv := apphttp.NewServer(cfg)
+	srv := apphttp.NewServer(cfg, nil)
 	return httptest.NewServer(srv.Handler())
 }
 
@@ -33,7 +32,7 @@ func TestLiveness(t *testing.T) {
 
 	resp, err := http.Get(ts.URL + "/liveness")
 	require.NoError(t, err)
-	defer resp.Body.Close()
+	defer resp.Body.Close() //nolint:errcheck
 
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 }
@@ -44,33 +43,9 @@ func TestReadiness(t *testing.T) {
 
 	resp, err := http.Get(ts.URL + "/readiness")
 	require.NoError(t, err)
-	defer resp.Body.Close()
+	defer resp.Body.Close() //nolint:errcheck
 
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
-}
-
-func TestEchoHandler(t *testing.T) {
-	ts := newTestServer()
-	defer ts.Close()
-
-	body := `{"message":"hello"}`
-	resp, err := http.Post(ts.URL+"/api/v1/echo", "application/json", strings.NewReader(body))
-	require.NoError(t, err)
-	defer resp.Body.Close()
-
-	assert.Equal(t, http.StatusOK, resp.StatusCode)
-	assert.Contains(t, resp.Header.Get("Content-Type"), "application/json")
-}
-
-func TestEchoHandler_InvalidBody(t *testing.T) {
-	ts := newTestServer()
-	defer ts.Close()
-
-	resp, err := http.Post(ts.URL+"/api/v1/echo", "application/json", strings.NewReader("not json"))
-	require.NoError(t, err)
-	defer resp.Body.Close()
-
-	assert.Equal(t, http.StatusBadRequest, resp.StatusCode)
 }
 
 func TestNotFound(t *testing.T) {
@@ -79,7 +54,7 @@ func TestNotFound(t *testing.T) {
 
 	resp, err := http.Get(ts.URL + "/nonexistent")
 	require.NoError(t, err)
-	defer resp.Body.Close()
+	defer resp.Body.Close() //nolint:errcheck
 
 	assert.Equal(t, http.StatusNotFound, resp.StatusCode)
 }
@@ -90,7 +65,7 @@ func TestRequestID(t *testing.T) {
 
 	resp, err := http.Get(ts.URL + "/liveness")
 	require.NoError(t, err)
-	defer resp.Body.Close()
+	defer resp.Body.Close() //nolint:errcheck
 
 	assert.NotEmpty(t, resp.Header.Get("X-Request-ID"))
 }

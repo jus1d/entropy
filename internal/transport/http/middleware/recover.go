@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"runtime"
 
-	"apigo/pkg/requestid"
+	"entropy/pkg/requestid"
 
 	"github.com/labstack/echo/v4"
 )
