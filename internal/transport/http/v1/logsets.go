@@ -7,10 +7,10 @@ import (
 	"log/slog"
 	"net/http"
 
-	"apigo/internal/transport/http/v1/response"
-	"apigo/pkg/apierror"
-	"apigo/pkg/apiresponse"
-	"apigo/pkg/log/sl"
+	"entropy/internal/transport/http/v1/response"
+	"entropy/pkg/apierror"
+	"entropy/pkg/apiresponse"
+	"entropy/pkg/log/sl"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"

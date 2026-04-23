@@ -1,7 +1,7 @@
 package requestlog
 
 import (
-	"apigo/pkg/apierror"
+	"entropy/pkg/apierror"
 	"errors"
 	"net/http"
 	"net/http/httptest"

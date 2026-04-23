@@ -5,10 +5,10 @@ import (
 	"log/slog"
 	"net/http"
 
-	"apigo/pkg/apierror"
-	"apigo/pkg/apiresponse"
-	"apigo/pkg/log/sl"
-	"apigo/pkg/requestid"
+	"entropy/pkg/apierror"
+	"entropy/pkg/apiresponse"
+	"entropy/pkg/log/sl"
+	"entropy/pkg/requestid"
 
 	"github.com/labstack/echo/v4"
 )

@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"apigo/internal/config"
-	apphttp "apigo/internal/transport/http"
+	"entropy/internal/config"
+	apphttp "entropy/internal/transport/http"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

@@ -4,9 +4,9 @@ import (
 	"log/slog"
 	"os"
 
-	"apigo/internal/config"
-	"apigo/internal/pkg/app"
-	"apigo/pkg/log/sl"
+	"entropy/internal/config"
+	"entropy/internal/pkg/app"
+	"entropy/pkg/log/sl"
 )
 
 func main() {

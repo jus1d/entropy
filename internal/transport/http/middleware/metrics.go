@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"apigo/pkg/apierror"
+	"entropy/pkg/apierror"
 
 	"github.com/labstack/echo/v4"
 	"github.com/prometheus/client_golang/prometheus"

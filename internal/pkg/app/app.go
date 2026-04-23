@@ -9,13 +9,13 @@ import (
 	"syscall"
 	"time"
 
-	"apigo/internal/config"
-	"apigo/internal/service/logset"
-	chstorage "apigo/internal/storage/clickhouse"
-	"apigo/internal/version"
-	"apigo/pkg/log"
+	"entropy/internal/config"
+	"entropy/internal/service/logset"
+	chstorage "entropy/internal/storage/clickhouse"
+	"entropy/internal/version"
+	"entropy/pkg/log"
 
-	httpserver "apigo/internal/transport/http"
+	httpserver "entropy/internal/transport/http"
 
 	"github.com/ClickHouse/clickhouse-go/v2"
 )

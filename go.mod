@@ -1,4 +1,4 @@
-module apigo
+module entropy
 
 go 1.26
 

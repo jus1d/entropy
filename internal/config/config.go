@@ -1,7 +1,7 @@
 package config
 
 import (
-	"apigo/pkg/log/sl"
+	"entropy/pkg/log/sl"
 	"log/slog"
 	"os"
 	"time"

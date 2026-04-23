@@ -6,8 +6,8 @@ import (
 	"log/slog"
 	"time"
 
-	"apigo/pkg/apierror"
-	"apigo/pkg/requestid"
+	"entropy/pkg/apierror"
+	"entropy/pkg/requestid"
 
 	"github.com/labstack/echo/v4"
 )

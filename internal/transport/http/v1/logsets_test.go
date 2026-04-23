@@ -10,9 +10,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	v1 "apigo/internal/transport/http/v1"
-	"apigo/internal/transport/http/v1/mock"
-	"apigo/pkg/apiresponse"
+	v1 "entropy/internal/transport/http/v1"
+	"entropy/internal/transport/http/v1/mock"
+	"entropy/pkg/apiresponse"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
